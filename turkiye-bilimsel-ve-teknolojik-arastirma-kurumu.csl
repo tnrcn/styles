@@ -135,58 +135,26 @@
       <text variable="number"/>
     </group>
   </macro>
-  <macro name="access">
-    <choose>
-      <if type="thesis report" match="any">
+<macro name="access">
+  <choose>
+    <if variable="DOI">
+      <text variable="DOI" prefix="DOI: https://doi.org/"/>
+    </if>
+    <else-if variable="URL">
+      <group delimiter=" ">
+        <text term="retrieved" text-case="capitalize-first"/>
+        <text term="from"/>
+        <text variable="URL"/>
         <choose>
-          <if variable="DOI" match="any">
-            <text variable="DOI" prefix="https://doi.org/"/>
-          </if>
-          <else-if variable="URL" match="any">
-            <group>
-              <text term="retrieved" text-case="capitalize-first" suffix=" "/>
-              <text term="from" suffix=" "/>
-              <text variable="URL"/>
-            </group>
-          </else-if>
-          <else-if variable="archive" match="any">
-            <group>
-              <text term="retrieved" text-case="capitalize-first" suffix=" "/>
-              <text term="from" suffix=" "/>
-              <text variable="archive" suffix="."/>
-              <text variable="archive_location" prefix=" (" suffix=")"/>
-            </group>
-          </else-if>
-        </choose>
-      </if>
-      <else>
-        <choose>
-          <if variable="DOI" match="none">
-            <choose>
-              <if type="post post-weblog webpage" match="any">
-                <group delimiter=" ">
-                  <text term="retrieved" text-case="capitalize-first" suffix=" "/>
-                  <group>
-                    <date variable="accessed" form="text" suffix=", "/>
-                  </group>
-                  <text term="from"/>
-                  <text variable="URL"/>
-                </group>
-              </if>
-              <else>
-                <group>
-                  <text term="retrieved" text-case="capitalize-first" suffix=" "/>
-                  <text term="from" suffix=" "/>
-                  <text variable="URL"/>
-                </group>
-              </else>
-            </choose>
+          <if type="post post-weblog webpage" match="any">
+            <date variable="accessed" form="text" prefix="(" suffix=")"/>
           </if>
         </choose>
-      </else>
-    </choose>
-  </macro>
-  <macro name="title">
+      </group>
+    </else-if>
+  </choose>
+</macro>  
+<macro name="title">
     <choose>
       <if type="book dataset graphic manuscript motion_picture report song speech thesis" match="any">
         <choose>
